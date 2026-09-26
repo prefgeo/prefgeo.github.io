@@ -3,10 +3,409 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Website</title>
+  <title>PrefGeo: Geometric Reward Factorization</title>
+  <meta name="description" content="PrefGeo generalizes preference learning to unseen tasks and users by recovering a reusable reward basis via minimum-volume unmixing in a preference-induced Fisher geometry.">
+  <meta name="theme-color" content="#faf9f6" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121316" media="(prefers-color-scheme: dark)">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="PrefGeo: Generalizing Preference Learning Across Contexts via Geometric Reward Factorization">
+  <meta property="og:description" content="Recover a reusable reward basis from independently estimated rewards, then adapt to a new task or user by reweighting it from a handful of preference labels.">
+  <meta property="og:url" content="https://prefgeo.github.io/">
+  <meta property="og:image" content="https://prefgeo.github.io/static/images/og_preview.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="static/images/favicon.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
+  <script defer src="static/js/config.js"></script>
+  <script defer src="static/js/main.js"></script>
 </head>
 <body>
-  <h1>Hello, World!</h1>
-  <p>Welcome to my GitHub Pages website.</p>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Simplex mark: reward components at the vertices, source reward heads inside -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="mark" viewBox="0 0 120 108">
+      <path d="M60 10 L10 96 L110 96 Z" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round" opacity=".85"/>
+      <rect x="51" y="1" width="18" height="18" rx="2.5" transform="rotate(45 60 10)" fill="#6c9fd6"/>
+      <rect x="1" y="87" width="18" height="18" rx="2.5" transform="rotate(45 10 96)" fill="#dfa56c"/>
+      <rect x="101" y="87" width="18" height="18" rx="2.5" transform="rotate(45 110 96)" fill="#9c80d0"/>
+      <circle cx="56" cy="50" r="8" fill="#d6b240"/>
+      <circle cx="42" cy="72" r="8" fill="#d97b93"/>
+      <circle cx="74" cy="70" r="8" fill="#6d7b8e"/>
+    </symbol>
+  </svg>
+
+  <nav class="nav" aria-label="Sections">
+    <div class="container nav-inner">
+      <a class="nav-brand" href="#top" aria-label="PrefGeo, back to top">
+        <svg aria-hidden="true"><use href="#mark"/></svg><span>PrefGeo</span>
+      </a>
+      <div class="nav-links">
+        <a href="#abstract">Abstract</a>
+        <a href="#demos">Demos</a>
+        <a href="#method">Method</a>
+        <a href="#results">Results</a>
+        <a href="#bibtex">BibTeX</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <!-- ================= HERO ================= -->
+    <header class="hero" id="top">
+      <div class="container">
+        <svg class="hero-mark" aria-hidden="true"><use href="#mark"/></svg>
+        <h1><span class="accent">Pref</span>Geo</h1>
+        <p class="hero-subtitle">Generalizing Preference Learning Across Contexts via Geometric Reward Factorization</p>
+
+        <p class="hero-authors">Anonymous Authors</p>
+        <p class="hero-venue">Paper under double-blind review<span class="dot">·</span>ICLR 2027</p>
+
+        <div class="btn-row">
+          <a class="btn" data-link="paper" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>
+            Paper <span class="btn-soon" hidden>(coming soon)</span>
+          </a>
+          <a class="btn btn--ghost" data-link="code" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 7-5 5 5 5M16 7l5 5-5 5"/></svg>
+            Code <span class="btn-soon" hidden>(upon acceptance)</span>
+          </a>
+          <a class="btn btn--ghost" href="#demos">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="13" height="14" rx="2"/><path d="m16 10 5-3v10l-5-3z"/></svg>
+            Demos
+          </a>
+          <a class="btn btn--ghost" href="#bibtex">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h4v4H7zM7 11c0 3-1 5-3 6M15 7h4v4h-4zM15 11c0 3-1 5-3 6"/></svg>
+            BibTeX
+          </a>
+        </div>
+
+        <div class="tldr" role="note">
+          <span class="tldr-tag">TL;DR</span>
+          <p>PrefGeo recovers a reusable <strong>reward basis</strong> from independently estimated per-context rewards via <strong>minimum-volume unmixing</strong> in a <strong>preference-induced Fisher geometry</strong>. A new task or user is then learned by reweighting that basis from just a handful of preference labels.</p>
+        </div>
+
+        <figure class="fig teaser">
+          <div class="fig-frame">
+            <img src="static/images/teaser.webp" width="2200" height="888"
+                 alt="Overview: (a) cross-task generalization and pluralistic personalization; (b) preference reward factorization into context-specific weights and a shared reward basis; (c) prior methods suffer from factorization ambiguity and geometry bias, while PrefGeo decouples reward-head estimation from basis recovery.">
+          </div>
+          <figcaption><strong>(a)</strong> We study cross-task generalization and pluralistic personalization. <strong>(b)</strong> Preference reward factorization models each context-specific reward head as a mixture of a shared reward basis. <strong>(c)</strong> Prior methods fit the factorization directly to preference data and suffer from <em>factorization ambiguity</em> and <em>geometry bias</em>. PrefGeo decouples reward-head estimation from basis recovery via geometric unmixing, which yields a basis that transfers more stably.</figcaption>
+        </figure>
+      </div>
+    </header>
+
+    <!-- ================= ABSTRACT ================= -->
+    <section class="section" id="abstract">
+      <div class="container">
+        <span class="section-eyebrow">Abstract</span>
+        <div class="measure abstract">
+          <p>Preference-based reinforcement learning is a popular paradigm for aligning AI models with human intent, but generalizing it to a new context, whether an unseen task or a new user, typically requires substantial additional feedback. In this work, we introduce PrefGeo, a geometric reward factorization framework for efficient preference learning across contexts. Unlike prior methods that fit a shared reward basis directly from preference data, PrefGeo recovers it from independently estimated context-specific rewards via regularized minimum-volume unmixing in a preference-induced Fisher geometry, capturing reusable preference structure. A new context is then adapted by updating only low-dimensional mixture weights. We evaluate PrefGeo on cross-task generalization in robotic manipulation, with both conventional policies and vision-language-action models, and on cross-user personalization in large language models and assistive human-robot interaction. PrefGeo consistently outperforms baselines in preference alignment and downstream task performance, especially when target feedback is scarce. Real-robot experiments and an assistive-feeding user study confirm its effectiveness in the real world.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= DEMOS (rendered from static/js/config.js) ================= -->
+    <section class="section" id="demos">
+      <div class="container">
+        <span class="section-eyebrow">Demos</span>
+        <h2 class="section-title">PrefGeo in Action</h2>
+        <p class="section-lede">Policies adapted to unseen tasks and users from only a handful of preference labels, on real robots and in simulation.</p>
+
+        <div class="demo-block">
+          <h3 class="demo-block-title">Real World <span class="pill">Real robot</span></h3>
+          <div id="demos-real"></div>
+        </div>
+
+        <div class="demo-block">
+          <h3 class="demo-block-title">Simulation <span class="pill">Benchmarks</span></h3>
+          <div id="demos-sim"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= METHOD ================= -->
+    <section class="section" id="method">
+      <div class="container">
+        <span class="section-eyebrow">Method</span>
+        <h2 class="section-title">Predict, Unmix, Remix</h2>
+        <p class="section-lede">Preference reward factorization writes each context's reward as \(R_c(x) = \theta_c^{\top} A\, z(x)\): a shared basis \(A\) of \(K\) reward components, mixed by context-specific weights \(\theta_c\). Adapting to a new context then needs only \(K\) numbers. The hard part is recovering a basis that actually transfers.</p>
+
+        <div class="challenges">
+          <div class="challenge">
+            <h3><span class="x" aria-hidden="true">✕</span>Factorization ambiguity</h3>
+            <p>Prior methods learn \(A\) and \(\theta_c\) end-to-end from source preferences. Many different bases reproduce the same source rewards, \(A^{\top}\theta_c = \tilde A^{\top}\tilde\theta_c\), yet behave differently when transferred to a new context.</p>
+            <p class="fix"><strong>PrefGeo:</strong> decouple reward estimation from basis recovery, and pick the most compact, non-degenerate basis via minimum-volume unmixing.</p>
+            <details class="more">
+              <summary>Illustration</summary>
+              <figure class="fig">
+                <div class="fig-frame"><img src="static/images/factorization_ambiguity.webp" width="2200" height="840" loading="lazy" alt="Two bases that yield identical source heads but assign different prior costs to the same reward change."></div>
+                <figcaption>(a) \(\tilde A\) stretches \(A\) along one edge yet yields the same source heads. (b) A coefficient prior makes moving toward smoothness (S) 4× cheaper than toward comfort (C) under \(\tilde A\) but not under \(A\). PrefGeo's reward-space prior is identical under either basis.</figcaption>
+              </figure>
+            </details>
+          </div>
+          <div class="challenge">
+            <h3><span class="x" aria-hidden="true">✕</span>Geometry bias</h3>
+            <p>Comparisons reveal reward directions unevenly. Under Euclidean criteria, a criterion that compared behaviors differ in only subtly (e.g., smoothness) gets suppressed, even if it matters as much as the others.</p>
+            <p class="fix"><strong>PrefGeo:</strong> measure reward differences by their effect on preference predictions, using the Fisher information of the Bradley–Terry model.</p>
+            <details class="more">
+              <summary>Illustration</summary>
+              <figure class="fig">
+                <div class="fig-frame"><img src="static/images/geometry_bias.webp" width="2200" height="590" loading="lazy" alt="Euclidean penalties suppress a weakly revealed criterion while the Fisher penalty treats both criteria equally."></div>
+                <figcaption>(a) Comparisons reveal smoothness 100× more weakly than progress, though both matter equally. (b) A Euclidean penalty suppresses the weakly revealed criterion; the Fisher penalty shrinks both equally. (c) Euclidean distance exaggerates the smoothness difference 10×; Fisher distance treats both as equal.</figcaption>
+              </figure>
+            </details>
+          </div>
+        </div>
+
+        <figure class="fig">
+          <div class="fig-frame">
+            <img src="static/images/overview.webp" width="2200" height="763" loading="lazy"
+                 alt="PrefGeo overview: (a) Predict fits a reward head per source context under a Fisher metric; (b) Unmix recovers a shared reward basis as a minimum-volume simplex; (c) Remix adapts only the mixture weights for a new user or task.">
+          </div>
+          <figcaption><strong>Overview of PrefGeo.</strong> <strong>(a) Predict:</strong> behaviors are encoded by a frozen pre-trained encoder, and a reward head \(\hat v_c\) is fitted independently for each source context. The comparison features induce a Fisher metric \(G\) that regularizes the fitting and defines the geometry of reward space. <strong>(b) Unmix:</strong> the heads are fixed points in this space, and a shared basis \(\hat A\) is recovered by shrinking a simplex around them. Its vertices are the components \(a_k\). <strong>(c) Remix:</strong> for a new context, the basis is frozen and only the mixture weights are updated from few-shot feedback.</figcaption>
+        </figure>
+
+        <div class="stages">
+          <div class="stage">
+            <h3>Predict</h3>
+            <span class="stage-tag">context-specific reward estimation</span>
+            <p>Encode each behavior with a frozen encoder \(z(x)\). Fit one linear reward head per source context from its own labels, regularized under the shared Fisher metric \(G\), which weights each direction by how strongly comparisons actually probe it.</p>
+            <div class="eq">$$\hat v_c=\arg\min_{v}\;\mathcal L^{\mathrm{BT}}_{v;\mathcal D_c}+\lambda_v\|v\|_G^2$$</div>
+            <p class="eq-note">\(\|\delta v\|_G^2=\tfrac{1}{4M}\sum_m(\delta v^{\top}\Delta z_m)^2\): the average squared change in comparison logits.</p>
+          </div>
+          <div class="stage">
+            <h3>Unmix</h3>
+            <span class="stage-tag">geometric reward basis recovery</span>
+            <p>Treat the fitted heads as fixed points, and recover \(K\) components as simplex vertices whose convex mixtures reconstruct them. Among all such simplices, prefer the one with minimum Fisher volume, with scale-anchoring and coherence penalties to prevent collapse.</p>
+            <div class="eq">$$\min_{A,\{\theta_c\}}\;\tfrac{1}{|\mathcal C|}\textstyle\sum_c\|\hat v_c-A^{\top}\theta_c\|_G^2+\lambda_{\mathrm{vol}}\mathcal V_G(A)+\mathcal R(A)$$</div>
+            <p class="eq-note">subject to \(\theta_c\ge 0,\ \mathbf 1^{\top}\theta_c=1\).</p>
+          </div>
+          <div class="stage">
+            <h3>Remix</h3>
+            <span class="stage-tag">few-shot adaptation</span>
+            <p>Freeze the basis. For a new task or user, start from the average source mixture \(\theta_0\), which already gives a zero-shot reward, and update only the \(K\) mixture weights from a few target comparisons.</p>
+            <div class="eq">$$\hat\theta_{c^\star}=\arg\min_{\theta\in\Delta^{K-1}}\mathcal L^{\mathrm{BT}}_{\hat A^{\top}\theta;\mathcal D_{c^\star}}+\lambda\big\|\hat A^{\top}(\theta-\theta_0)\big\|_G^2$$</div>
+            <p class="eq-note">Measured in reward space, so the prior does not depend on how the basis is parameterized.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= RESULTS ================= -->
+    <section class="section" id="results">
+      <div class="container">
+        <span class="section-eyebrow">Results</span>
+        <h2 class="section-title">Generalizing to Unseen Tasks and Users</h2>
+        <p class="section-lede">Six benchmarks across robot manipulation (classic policies and VLAs), assistive human-robot interaction, and LLM personalization, plus real-robot experiments and a user study.</p>
+
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-value"><span class="from">22.5%</span><span class="arrow">→</span><span class="to">67.5%</span></div>
+            <p class="stat-label"><strong>Real-robot VLA success</strong>, averaged over 4 held-out tasks, with 20 target labels each</p>
+          </div>
+          <div class="stat">
+            <div class="stat-value"><span class="from">51.6%</span><span class="arrow">→</span><span class="to">74.7%</span></div>
+            <p class="stat-label"><strong>LIBERO-Goal success</strong> of π<sub>0.5</sub>, averaged over 10 held-out tasks (LoRe: 55.7%)</p>
+          </div>
+          <div class="stat">
+            <div class="stat-value"><span class="to">83.1%</span></div>
+            <p class="stat-label"><strong>Best-of-N win rate</strong> on Assistive Feeding for unseen users (next best: 69.3%)</p>
+          </div>
+          <div class="stat">
+            <div class="stat-value"><span class="to">4 / 4</span></div>
+            <p class="stat-label"><strong>Lowest NLL</strong> on every personalization benchmark, and highest win rate on all three where it applies</p>
+          </div>
+        </div>
+
+        <!-- cross-task -->
+        <h3 class="subhead">Cross-task generalization</h3>
+        <div class="prose measure" style="margin-left:0">
+          <p>On Meta-World, each target task is paired with four source tasks such that neither the target object nor the target action appears in the sources. PrefGeo is the only transfer method that beats PrefCLM, which uses zero-shot feedback from a frontier model. It nearly matches SAC trained on the ground-truth reward, and outperforms PrefGT, which uses 500× more ground-truth target labels, on four of five tasks.</p>
+        </div>
+        <figure class="fig">
+          <div class="fig-frame"><img src="static/images/metaworld_results.webp" width="2200" height="446" loading="lazy" alt="Success rate curves on five unseen Meta-World tasks; PrefGeo outperforms all preference-transfer baselines."></div>
+          <figcaption><strong>Cross-task generalization</strong> on unseen Meta-World tasks: success rate over 5 random seeds.</figcaption>
+        </figure>
+
+        <div class="split split--fig-wide" style="margin-top:36px">
+          <div class="prose">
+            <p>On <strong>LIBERO-Goal</strong>, each of the ten tasks is held out in turn while the other nine serve as sources. A pre-trained π<sub>0.5</sub>-base is then fine-tuned with the adapted reward using 20 target labels.</p>
+            <p>PrefGeo raises the average success rate from <strong>51.6% to 74.7%</strong> and improves every task, including T8, where both the base policy and LoRe fail completely.</p>
+          </div>
+          <figure class="fig">
+            <div class="fig-frame"><img src="static/images/libero_results.webp" width="1619" height="639" loading="lazy" alt="Per-task LIBERO-Goal success rates for Base, LoRe and PrefGeo; PrefGeo averages 74.7 versus 55.7 and 51.6."></div>
+            <figcaption><strong>LIBERO-Goal</strong> success rates for Base, LoRe, and PrefGeo. The shaded bar marks PrefGeo's gain over Base.</figcaption>
+          </figure>
+        </div>
+
+        <!-- personalization -->
+        <h3 class="subhead">Pluralistic personalization</h3>
+        <div class="prose measure" style="margin-left:0">
+          <p>For unseen users on three LLM benchmarks and simulated assistive feeding, PrefGeo achieves the lowest NLL everywhere. Accuracy only checks the sign of each reward difference; NLL and win rate also reflect how well the reward ranks behaviors for downstream selection. On PRISM, for example, all methods lie within about 3 points of accuracy, yet PrefGeo's win rate is about 4 points higher.</p>
+        </div>
+        <div class="table-wrap">
+          <table class="results">
+            <thead>
+              <tr>
+                <th></th>
+                <th colspan="3" class="grp">PersonalLLM</th>
+                <th colspan="3" class="grp">PRISM</th>
+                <th colspan="2" class="grp">TL;DR</th>
+                <th colspan="3" class="grp">Assistive Feeding</th>
+              </tr>
+              <tr>
+                <th>Method</th>
+                <th class="grp">Acc% ↑</th><th>NLL ↓</th><th>WR% ↑</th>
+                <th class="grp">Acc% ↑</th><th>NLL ↓</th><th>WR% ↑</th>
+                <th class="grp">Acc% ↑</th><th>NLL ↓</th>
+                <th class="grp">Acc% ↑</th><th>NLL ↓</th><th>WR% ↑</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="m-lore">LoRe</td>
+                <td class="grp">92.26<span class="std">±1.10</span></td><td>0.36<span class="std">±0.171</span></td><td>76.40<span class="std">±1.05</span></td>
+                <td class="grp">57.99<span class="std">±1.10</span></td><td>1.67<span class="std">±0.102</span></td><td>59.89<span class="std">±3.85</span></td>
+                <td class="grp best">65.38<span class="std">±1.97</span></td><td>1.45<span class="std">±0.081</span></td>
+                <td class="grp">70.75<span class="std">±1.28</span></td><td>0.69<span class="std">±0.004</span></td><td>69.30<span class="std">±3.03</span></td>
+              </tr>
+              <tr>
+                <td class="m-pref">PReF</td>
+                <td class="grp">91.64<span class="std">±1.03</span></td><td>0.29<span class="std">±0.042</span></td><td>75.18<span class="std">±1.12</span></td>
+                <td class="grp">55.09<span class="std">±3.31</span></td><td>1.93<span class="std">±0.478</span></td><td>56.84<span class="std">±4.72</span></td>
+                <td class="grp">56.18<span class="std">±1.82</span></td><td>1.46<span class="std">±0.868</span></td>
+                <td class="grp">56.60<span class="std">±2.71</span></td><td>0.71<span class="std">±0.001</span></td><td>65.70<span class="std">±1.76</span></td>
+              </tr>
+              <tr>
+                <td class="m-maml">MAML</td>
+                <td class="grp">89.00<span class="std">±1.76</span></td><td>1.11<span class="std">±0.291</span></td><td>70.14<span class="std">±0.88</span></td>
+                <td class="grp best">58.11<span class="std">±0.50</span></td><td>2.31<span class="std">±0.214</span></td><td>58.26<span class="std">±3.14</span></td>
+                <td class="grp">61.51<span class="std">±1.44</span></td><td>1.01<span class="std">±0.221</span></td>
+                <td class="grp">68.00<span class="std">±2.45</span></td><td>0.68<span class="std">±0.112</span></td><td>65.24<span class="std">±2.87</span></td>
+              </tr>
+              <tr>
+                <td class="m-vpl">VPL</td>
+                <td class="grp">89.52<span class="std">±0.52</span></td><td>0.64<span class="std">±0.262</span></td><td>73.49<span class="std">±0.96</span></td>
+                <td class="grp">57.82<span class="std">±1.10</span></td><td>0.66<span class="std">±0.012</span></td><td>58.74<span class="std">±3.61</span></td>
+                <td class="grp">63.34<span class="std">±2.13</span></td><td>1.37<span class="std">±0.080</span></td>
+                <td class="grp">73.74<span class="std">±2.30</span></td><td>0.66<span class="std">±0.004</span></td><td>68.08<span class="std">±1.89</span></td>
+              </tr>
+              <tr class="ours">
+                <td>PrefGeo</td>
+                <td class="grp best">92.28<span class="std">±0.40</span></td><td class="best">0.17<span class="std">±0.010</span></td><td class="best">79.24<span class="std">±0.46</span></td>
+                <td class="grp">57.92<span class="std">±0.97</span></td><td class="best">0.62<span class="std">±0.009</span></td><td class="best">64.12<span class="std">±3.84</span></td>
+                <td class="grp">65.14<span class="std">±1.55</span></td><td class="best">0.87<span class="std">±0.004</span></td>
+                <td class="grp best">75.32<span class="std">±1.56</span></td><td class="best">0.63<span class="std">±0.009</span></td><td class="best">83.14<span class="std">±2.85</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-caption"><strong>Pluralistic personalization</strong> on unseen users. Mean ± std over 5 runs; best highlighted. Win rate (WR) is not reported on TL;DR because its comparisons do not support a protocol that is comparable across methods.</p>
+
+        <!-- ablations -->
+        <h3 class="subhead">Ablations and feedback efficiency</h3>
+        <div class="prose measure" style="margin-left:0">
+          <p>Removing either the Fisher geometry or the decoupling causes the largest drop, which confirms that both geometry bias and factorization ambiguity matter. PrefGeo's advantage is largest when target feedback is scarcest. On PersonalLLM its NLL saturates with only 8 source users, whereas the baselines need hundreds to approach it.</p>
+        </div>
+        <figure class="fig">
+          <div class="fig-frame"><img src="static/images/ablation.webp" width="2200" height="570" loading="lazy" alt="Left: component ablations on Drawer Open and Feeding. Right: held-out NLL versus target labels on Feeding and versus number of source users on PersonalLLM."></div>
+          <figcaption><strong>Ablations.</strong> Left: removing each component of PrefGeo, on Drawer Open (success rate) and Assistive Feeding (win rate). Right: held-out NLL under varying target feedback on Assistive Feeding, and under varying numbers of source users on PersonalLLM.</figcaption>
+        </figure>
+
+        <!-- basis -->
+        <h3 class="subhead">A meaningful, reusable reward basis</h3>
+        <div class="prose measure" style="margin-left:0">
+          <p>We relate learned reward differences to three semantic attributes: approach progress, task progress, and effort economy. On source tasks, every method prefers segments with more of each attribute. On the <em>unseen</em> target task, only PrefGeo keeps this alignment. LoRe and VPL weaken or even reverse it, for example by favoring less efficient motion.</p>
+        </div>
+        <figure class="fig">
+          <div class="fig-frame"><img src="static/images/attribute_alignment.webp" width="2200" height="1044" loading="lazy" alt="Scatter plots of attribute differences versus learned reward differences for PrefGeo, LoRe and VPL on source and unseen target tasks."></div>
+          <figcaption><strong>Attribute alignment of learned rewards</strong> on source tasks and the unseen target task Handle Pull. Each point is a segment pair, colored by which segment the learned reward prefers. The dark curve is the binned mean, and ρ is the Spearman correlation.</figcaption>
+        </figure>
+        <div class="split" style="margin-top:36px">
+          <div class="prose">
+            <p>The objective never observes these attributes, yet <strong>each PrefGeo component aligns with a single one</strong>. The volume term favors a compact basis, and the coherence penalty discourages two components from encoding the same criterion.</p>
+            <p>LoRe's basis instead mixes approach and task progress across two components and has no direction for effort economy. No reweighting of it can express a preference for efficient motion.</p>
+          </div>
+          <figure class="fig">
+            <div class="fig-frame"><img src="static/images/basis_components.webp" width="1743" height="609" loading="lazy" alt="Heatmaps of absolute cosine similarity between recovered reward components and semantic attributes; PrefGeo components each align with one attribute."></div>
+            <figcaption><strong>Recovered reward components</strong> vs. semantic attributes (|cos|), on 1,200 Meta-World source segments with K = 3.</figcaption>
+          </figure>
+        </div>
+
+        <!-- real world -->
+        <h3 class="subhead">Real-world experiments</h3>
+        <div class="prose measure" style="margin-left:0">
+          <p>We deploy PrefGeo on a Franka arm starting from π<sub>0.5</sub>-DROID. Each of four tasks is held out as the target, with 100 preference pairs per source task and only 20 on the target. PrefGeo raises the average success rate from <strong>22.5% to 67.5%</strong>.</p>
+        </div>
+        <figure class="fig">
+          <div class="fig-frame"><img src="static/images/real_vla.webp" width="2200" height="522" loading="lazy" alt="Four real-world Franka tasks: take toast out of toaster (70%), empty the box (90%), stack cubes (60%), put marker into cup (50%)."></div>
+          <figcaption><strong>Real-world VLA manipulation.</strong> Success rates of π<sub>0.5</sub>-DROID fine-tuned with PrefGeo on four held-out tasks, using 20 target labels each.</figcaption>
+        </figure>
+        <div class="table-wrap" style="margin-top:20px">
+          <table class="results compact">
+            <thead>
+              <tr><th>Policy</th><th class="grp">Toast</th><th>Box</th><th>Cubes</th><th>Marker</th><th class="grp">Average</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>π<sub>0.5</sub>-DROID (zero-shot)</td><td class="grp">2/10</td><td>4/10</td><td>2/10</td><td>1/10</td><td class="grp">22.5%</td></tr>
+              <tr><td class="m-lore">+ LoRe (20 target labels)</td><td class="grp">1/10</td><td>5/10</td><td>2/10</td><td>3/10</td><td class="grp">27.5%</td></tr>
+              <tr class="ours"><td>+ PrefGeo (20 target labels)</td><td class="grp best">7/10</td><td class="best">9/10</td><td class="best">6/10</td><td class="best">5/10</td><td class="grp best">67.5%</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="split split--fig-wide" style="margin-top:40px">
+          <div class="prose">
+            <p>In a <strong>user study on physical robot-assisted feeding</strong> with a Kinova Jaco arm, the reward basis is recovered in simulation from 40 simulated source users. Each of 8 participants then provides only <strong>10 preference labels</strong>.</p>
+            <p>Participants interacted with Base, LoRe, and PrefGeo policies in a blind, randomized order and rated PrefGeo significantly higher in satisfaction than both (Friedman χ²(2) = 13.07, p = 0.001; Holm-corrected post-hoc p &lt; 0.05).</p>
+          </div>
+          <figure class="fig">
+            <div class="fig-frame"><img src="static/images/user_study.webp" width="1523" height="641" loading="lazy" alt="Left: a robot arm feeding a participant with a blurred face. Right: satisfaction ratings for Base, LoRe and PrefGeo, with PrefGeo significantly higher."></div>
+            <figcaption><strong>User study.</strong> Satisfaction ratings from 8 participants, 3 runs each; * p &lt; 0.05. Faces are blurred.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= BIBTEX ================= -->
+    <section class="section" id="bibtex">
+      <div class="container">
+        <span class="section-eyebrow">Citation</span>
+        <h2 class="section-title">BibTeX</h2>
+        <div class="measure">
+          <div class="bib">
+            <button class="copy-btn" id="copy-bibtex" type="button">Copy</button>
+<pre><code id="bibtex">@inproceedings{anonymous2027prefgeo,
+  title     = {PrefGeo: Generalizing Preference Learning Across
+               Contexts via Geometric Reward Factorization},
+  author    = {Anonymous},
+  booktitle = {Submitted to the International Conference on
+               Learning Representations (ICLR)},
+  year      = {2027},
+  note      = {Under review}
+}</code></pre>
+          </div>
+          <p class="bib-note">The full citation will be available after the review period.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>PrefGeo · Anonymous project page for double-blind review</p>
+    </div>
+  </footer>
 </body>
 </html>
