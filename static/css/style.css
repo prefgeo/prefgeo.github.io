@@ -152,8 +152,8 @@ sub { font-size: .72em; }
 }
 
 /* ---------- hero ---------- */
-.hero { padding: 64px 0 28px; text-align: center; }
-.hero-mark { width: 64px; height: 58px; margin: 0 auto 18px; }
+.hero { padding: 56px 0 48px; text-align: center; }
+.hero-mark { width: 56px; height: 50px; margin: 0 auto 14px; }
 .hero h1 { font-size: clamp(2.6rem, 6.4vw, 4.2rem); font-weight: 700; letter-spacing: -.02em; }
 .hero h1 .accent { color: var(--accent); }
 .hero-subtitle {
@@ -161,9 +161,7 @@ sub { font-size: .72em; }
   font-size: clamp(1.25rem, 2.8vw, 1.7rem); line-height: 1.3;
   color: var(--ink-2); max-width: 820px; margin: 12px auto 0; text-wrap: balance;
 }
-.hero-authors { margin: 26px 0 4px; font-size: 18px; color: var(--ink); font-weight: 500; }
-.hero-venue { margin: 0; color: var(--muted); font-size: 16px; }
-.hero-venue .dot { margin: 0 8px; color: var(--line-strong); }
+.hero-authors { margin: 22px 0 0; font-size: 18px; color: var(--ink); font-weight: 500; }
 
 .btn-row { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 26px; }
 .btn {
@@ -226,7 +224,7 @@ section { scroll-margin-top: 64px; }
 }
 .fig figcaption strong { color: var(--ink-2); }
 .fig--narrow { max-width: 720px; margin-left: auto; margin-right: auto; }
-.teaser { margin-top: 36px; }
+.teaser { margin-top: 44px; }
 
 .split { display: grid; gap: 28px; align-items: center; }
 @media (min-width: 900px) {
@@ -454,23 +452,27 @@ table.results.compact { min-width: 520px; }
 }
 .placeholder svg { width: 30px; height: 30px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linejoin: round; opacity: .75; }
 
-/* ---------- BibTeX ---------- */
-.bib {
-  position: relative; background: var(--surface); border: 1px solid var(--line);
-  border-radius: var(--radius); box-shadow: var(--shadow);
+/* ---------- overview player ---------- */
+.overview-player { max-width: 900px; margin: 0 auto; }
+.overview-player video {
+  width: 100%; height: auto; aspect-ratio: 16/9; background: #0e0f11;
+  border-radius: var(--radius); border: 1px solid var(--line); box-shadow: var(--shadow);
 }
-.bib pre {
-  margin: 0; padding: 20px 22px; overflow-x: auto;
-  font-family: var(--font-mono); font-size: 14px; line-height: 1.65; color: var(--ink-2);
+.overview-player audio { width: 100%; max-width: 640px; margin: 0 auto; }
+.overview-note { text-align: center; color: var(--muted); font-size: 14.5px; margin: 12px 0 0; }
+
+/* ---------- in-section table of contents (Results) ---------- */
+.toc {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+  margin: -12px auto 36px; max-width: 900px;
 }
-.copy-btn {
-  position: absolute; top: 10px; right: 10px;
-  appearance: none; cursor: pointer; font: inherit; font-size: 13.5px; font-weight: 600;
-  padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line-strong);
-  background: var(--surface); color: var(--ink-2);
+.toc a {
+  padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line-strong);
+  background: var(--surface); color: var(--ink-2); font-size: 14.5px; font-weight: 600; text-decoration: none;
+  transition: background .15s, color .15s, border-color .15s;
 }
-.copy-btn:hover { background: var(--surface-2); color: var(--ink); }
-.bib-note { text-align: center; color: var(--muted); font-size: 15px; margin-top: 12px; }
+.toc a:hover { background: var(--surface-2); color: var(--ink); border-color: var(--ink-2); }
+.subhead { scroll-margin-top: 72px; }
 
 /* ---------- footer ---------- */
 .footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--muted); font-size: 14.5px; text-align: center; }

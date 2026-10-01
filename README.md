@@ -7,7 +7,7 @@ Plain HTML/CSS/JS, no build step. GitHub Pages serves `main` as-is.
 
 ```
 index.html              page content (text, figures, tables, BibTeX)
-static/js/config.js     ← edit this to add demos and the Paper/Code links
+static/js/config.js     ← edit this to add rollout videos, the overview, and the Paper/Code links
 static/js/main.js       renders the demos from config.js (no need to edit)
 static/css/style.css    styles
 static/images/          figures (converted from the paper's PDFs)
@@ -53,6 +53,16 @@ ffmpeg -i input.mp4 -an -map_metadata -1 -vf "setpts=PTS/4,scale=-2:720" \
 ffmpeg -i input.gif -an -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" \
   -c:v libx264 -crf 24 -pix_fmt yuv420p -movflags +faststart out.mp4
 ```
+
+## Adding the narrated overview (e.g. NotebookLM Video/Audio Overview)
+
+1. Strip metadata and put the file in `static/overview/`:
+   ```bash
+   ffmpeg -i overview.mp4 -map_metadata -1 -c copy static/overview/prefgeo_overview.mp4
+   ```
+2. In `static/js/config.js`, set `overview.video` (or `overview.audio` for an
+   .mp3/.m4a) and optionally `duration`. With both empty, the Overview section
+   and its links are hidden.
 
 ## Keeping the page anonymous (double-blind review)
 

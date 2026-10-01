@@ -52,10 +52,10 @@
       </a>
       <div class="nav-links">
         <a href="#abstract">Abstract</a>
-        <a href="#demos">Demos</a>
+        <a href="#overview">Overview</a>
+        <a href="#rollouts">Rollouts</a>
         <a href="#method">Method</a>
         <a href="#results">Results</a>
-        <a href="#bibtex">BibTeX</a>
       </div>
     </div>
   </nav>
@@ -69,7 +69,6 @@
         <p class="hero-subtitle">Generalizing Preference Learning Across Contexts via Geometric Reward Factorization</p>
 
         <p class="hero-authors">Anonymous Authors</p>
-        <p class="hero-venue">Paper under double-blind review<span class="dot">·</span>ICLR 2027</p>
 
         <div class="btn-row">
           <a class="btn" data-link="paper" href="#">
@@ -80,13 +79,13 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 7-5 5 5 5M16 7l5 5-5 5"/></svg>
             Code <span class="btn-soon" hidden>(upon acceptance)</span>
           </a>
-          <a class="btn btn--ghost" href="#demos">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="13" height="14" rx="2"/><path d="m16 10 5-3v10l-5-3z"/></svg>
-            Demos
+          <a class="btn btn--ghost" href="#overview">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13a8 8 0 0 1 16 0"/><rect x="3" y="13" width="4" height="7" rx="1.5"/><rect x="17" y="13" width="4" height="7" rx="1.5"/></svg>
+            Overview
           </a>
-          <a class="btn btn--ghost" href="#bibtex">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h4v4H7zM7 11c0 3-1 5-3 6M15 7h4v4h-4zM15 11c0 3-1 5-3 6"/></svg>
-            BibTeX
+          <a class="btn btn--ghost" href="#rollouts">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="13" height="14" rx="2"/><path d="m16 10 5-3v10l-5-3z"/></svg>
+            Rollouts
           </a>
         </div>
 
@@ -94,14 +93,6 @@
           <span class="tldr-tag">TL;DR</span>
           <p>PrefGeo recovers a reusable <strong>reward basis</strong> from independently estimated per-context rewards via <strong>minimum-volume unmixing</strong> in a <strong>preference-induced Fisher geometry</strong>. A new task or user is then learned by reweighting that basis from just a handful of preference labels.</p>
         </div>
-
-        <figure class="fig teaser">
-          <div class="fig-frame">
-            <img src="static/images/teaser.webp" width="2200" height="888"
-                 alt="Overview: (a) cross-task generalization and pluralistic personalization; (b) preference reward factorization into context-specific weights and a shared reward basis; (c) prior methods suffer from factorization ambiguity and geometry bias, while PrefGeo decouples reward-head estimation from basis recovery.">
-          </div>
-          <figcaption><strong>(a)</strong> We study cross-task generalization and pluralistic personalization. <strong>(b)</strong> Preference reward factorization models each context-specific reward head as a mixture of a shared reward basis. <strong>(c)</strong> Prior methods fit the factorization directly to preference data and suffer from <em>factorization ambiguity</em> and <em>geometry bias</em>. PrefGeo decouples reward-head estimation from basis recovery via geometric unmixing, which yields a basis that transfers more stably.</figcaption>
-        </figure>
       </div>
     </header>
 
@@ -112,13 +103,30 @@
         <div class="measure abstract">
           <p>Preference-based reinforcement learning is a popular paradigm for aligning AI models with human intent, but generalizing it to a new context, whether an unseen task or a new user, typically requires substantial additional feedback. In this work, we introduce PrefGeo, a geometric reward factorization framework for efficient preference learning across contexts. Unlike prior methods that fit a shared reward basis directly from preference data, PrefGeo recovers it from independently estimated context-specific rewards via regularized minimum-volume unmixing in a preference-induced Fisher geometry, capturing reusable preference structure. A new context is then adapted by updating only low-dimensional mixture weights. We evaluate PrefGeo on cross-task generalization in robotic manipulation, with both conventional policies and vision-language-action models, and on cross-user personalization in large language models and assistive human-robot interaction. PrefGeo consistently outperforms baselines in preference alignment and downstream task performance, especially when target feedback is scarce. Real-robot experiments and an assistive-feeding user study confirm its effectiveness in the real world.</p>
         </div>
+        <figure class="fig teaser">
+          <div class="fig-frame">
+            <img src="static/images/teaser.webp" width="2200" height="888"
+                 alt="Overview: (a) cross-task generalization and pluralistic personalization; (b) preference reward factorization into context-specific weights and a shared reward basis; (c) prior methods suffer from factorization ambiguity and geometry bias, while PrefGeo decouples reward-head estimation from basis recovery.">
+          </div>
+          <figcaption><strong>Figure 1.</strong> <strong>(a)</strong> We study cross-task generalization and pluralistic personalization. <strong>(b)</strong> Preference reward factorization models each context-specific reward head as a mixture of a shared reward basis. <strong>(c)</strong> Prior methods fit the factorization directly to preference data and suffer from <em>factorization ambiguity</em> and <em>geometry bias</em>. PrefGeo decouples reward-head estimation from basis recovery via geometric unmixing, which yields a basis that transfers more stably.</figcaption>
+        </figure>
       </div>
     </section>
 
-    <!-- ================= DEMOS (rendered from static/js/config.js) ================= -->
-    <section class="section" id="demos">
+    <!-- ================= OVERVIEW (audio / video, set in static/js/config.js) ================= -->
+    <section class="section" id="overview">
       <div class="container">
-        <span class="section-eyebrow">Demos</span>
+        <span class="section-eyebrow">Overview</span>
+        <h2 class="section-title">PrefGeo in a Few Minutes</h2>
+        <p class="section-lede" id="overview-lede">A short narrated walkthrough of the problem, the method, and the main results.</p>
+        <div class="overview-player" id="overview-player"></div>
+      </div>
+    </section>
+
+    <!-- ================= ROLLOUTS (rendered from static/js/config.js) ================= -->
+    <section class="section" id="rollouts">
+      <div class="container">
+        <span class="section-eyebrow">Rollouts</span>
         <h2 class="section-title">PrefGeo in Action</h2>
         <p class="section-lede">Policies adapted to unseen tasks from only a handful of preference labels, on a real robot and in simulation.</p>
 
@@ -209,6 +217,14 @@
         <h2 class="section-title">Generalizing to Unseen Tasks and Users</h2>
         <p class="section-lede">Six benchmarks across robot manipulation (classic policies and VLAs), assistive human-robot interaction, and LLM personalization, plus real-robot experiments and a user study.</p>
 
+        <nav class="toc" aria-label="Results subsections">
+          <a href="#res-cross-task">Cross-task generalization</a>
+          <a href="#res-personalization">Personalization</a>
+          <a href="#res-ablations">Ablations</a>
+          <a href="#res-basis">Reward basis</a>
+          <a href="#res-real">Real world &amp; user study</a>
+        </nav>
+
         <div class="stats">
           <div class="stat">
             <div class="stat-value"><span class="from">22.5%</span><span class="arrow">→</span><span class="to">67.5%</span></div>
@@ -229,7 +245,7 @@
         </div>
 
         <!-- cross-task -->
-        <h3 class="subhead">Cross-task generalization</h3>
+        <h3 class="subhead" id="res-cross-task">Cross-task generalization</h3>
         <div class="prose measure" style="margin-left:0">
           <p>On Meta-World, each target task is paired with four source tasks such that neither the target object nor the target action appears in the sources. PrefGeo is the only transfer method that beats PrefCLM, which uses zero-shot feedback from a frontier model. It nearly matches SAC trained on the ground-truth reward, and outperforms PrefGT, which uses 500× more ground-truth target labels, on four of five tasks.</p>
         </div>
@@ -250,7 +266,7 @@
         </div>
 
         <!-- personalization -->
-        <h3 class="subhead">Pluralistic personalization</h3>
+        <h3 class="subhead" id="res-personalization">Pluralistic personalization</h3>
         <div class="prose measure" style="margin-left:0">
           <p>For unseen users on three LLM benchmarks and simulated assistive feeding, PrefGeo achieves the lowest NLL everywhere. Accuracy only checks the sign of each reward difference; NLL and win rate also reflect how well the reward ranks behaviors for downstream selection. On PRISM, for example, all methods lie within about 3 points of accuracy, yet PrefGeo's win rate is about 4 points higher.</p>
         </div>
@@ -314,7 +330,7 @@
         <p class="table-caption"><strong>Pluralistic personalization</strong> on unseen users. Mean ± std over 5 runs; best highlighted. Win rate (WR) is not reported on TL;DR because its comparisons do not support a protocol that is comparable across methods.</p>
 
         <!-- ablations -->
-        <h3 class="subhead">Ablations and feedback efficiency</h3>
+        <h3 class="subhead" id="res-ablations">Ablations and feedback efficiency</h3>
         <div class="prose measure" style="margin-left:0">
           <p>Removing either the Fisher geometry or the decoupling causes the largest drop, which confirms that both geometry bias and factorization ambiguity matter. PrefGeo's advantage is largest when target feedback is scarcest. On PersonalLLM its NLL saturates with only 8 source users, whereas the baselines need hundreds to approach it.</p>
         </div>
@@ -324,7 +340,7 @@
         </figure>
 
         <!-- basis -->
-        <h3 class="subhead">A meaningful, reusable reward basis</h3>
+        <h3 class="subhead" id="res-basis">A meaningful, reusable reward basis</h3>
         <div class="prose measure" style="margin-left:0">
           <p>We relate learned reward differences to three semantic attributes: approach progress, task progress, and effort economy. On source tasks, every method prefers segments with more of each attribute. On the <em>unseen</em> target task, only PrefGeo keeps this alignment. LoRe and VPL weaken or even reverse it, for example by favoring less efficient motion.</p>
         </div>
@@ -344,7 +360,7 @@
         </div>
 
         <!-- real world -->
-        <h3 class="subhead">Real-world experiments</h3>
+        <h3 class="subhead" id="res-real">Real-world experiments</h3>
         <div class="prose measure" style="margin-left:0">
           <p>We deploy PrefGeo on a Franka arm starting from π<sub>0.5</sub>-DROID. Each of four tasks is held out as the target, with 100 preference pairs per source task and only 20 on the target. PrefGeo raises the average success rate from <strong>22.5% to 67.5%</strong>.</p>
         </div>
@@ -378,27 +394,6 @@
       </div>
     </section>
 
-    <!-- ================= BIBTEX ================= -->
-    <section class="section" id="bibtex">
-      <div class="container">
-        <span class="section-eyebrow">Citation</span>
-        <h2 class="section-title">BibTeX</h2>
-        <div class="measure">
-          <div class="bib">
-            <button class="copy-btn" id="copy-bibtex" type="button">Copy</button>
-<pre><code id="bibtex">@inproceedings{anonymous2027prefgeo,
-  title     = {PrefGeo: Generalizing Preference Learning Across
-               Contexts via Geometric Reward Factorization},
-  author    = {Anonymous},
-  booktitle = {},
-  year      = {2027},
-  note      = {Under review}
-}</code></pre>
-          </div>
-          <p class="bib-note">The full citation will be available after the review period.</p>
-        </div>
-      </div>
-    </section>
   </main>
 
   <footer class="footer">

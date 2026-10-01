@@ -1,4 +1,4 @@
-/* PrefGeo project page — renders demos from config.js and wires up the page.
+/* PrefGeo project page — renders rollouts + overview from config.js and wires up the page.
  * You should not need to edit this file; edit static/js/config.js instead. */
 (function () {
   "use strict";
@@ -254,11 +254,43 @@
       any = any || ok;
     });
     if (!any) {
-      var sec = document.getElementById("demos");
-      if (sec) sec.remove();
-      document.querySelectorAll('a[href="#demos"]').forEach(function (a) { a.remove(); });
+      removeSection("rollouts");
     }
     refreshVideos();
+  }
+
+  function removeSection(id) {
+    var sec = document.getElementById(id);
+    if (sec) sec.remove();
+    document.querySelectorAll('a[href="#' + id + '"]').forEach(function (a) { a.remove(); });
+  }
+
+  /* ---------- narrated overview (video or audio) ---------- */
+  function initOverview() {
+    var ov = CONFIG.overview || {};
+    var mount = document.getElementById("overview-player");
+    if (!mount) return;
+    if (!ov.video && !ov.audio) { removeSection("overview"); return; }
+    var m;
+    if (ov.video) {
+      m = document.createElement("video");
+      m.src = ov.video;
+      m.playsInline = true;
+      if (ov.poster) m.poster = ov.poster;
+      mount.classList.add("overview-player--video");
+    } else {
+      m = document.createElement("audio");
+      m.src = ov.audio;
+      mount.classList.add("overview-player--audio");
+    }
+    m.controls = true;
+    m.preload = "metadata";
+    m.setAttribute("aria-label", "PrefGeo narrated overview");
+    mount.appendChild(m);
+    var meta = [];
+    if (ov.duration) meta.push(escapeHtml(ov.duration));
+    if (ov.note) meta.push(escapeHtml(ov.note));
+    if (meta.length) mount.appendChild(el("p", "overview-note", meta.join(" · ")));
   }
 
   /* ---------- header links (Paper / Code) ---------- */
@@ -323,30 +355,6 @@
     });
   }
 
-  /* ---------- copy BibTeX ---------- */
-  function initCopy() {
-    var btn = document.getElementById("copy-bibtex");
-    var code = document.getElementById("bibtex");
-    if (!btn || !code) return;
-    btn.addEventListener("click", function () {
-      var text = code.textContent;
-      var done = function () {
-        btn.textContent = "Copied";
-        setTimeout(function () { btn.textContent = "Copy"; }, 1600);
-      };
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(done, function () { fallbackCopy(text); done(); });
-      } else { fallbackCopy(text); done(); }
-    });
-  }
-  function fallbackCopy(text) {
-    var ta = document.createElement("textarea");
-    ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
-    document.body.appendChild(ta); ta.select();
-    try { document.execCommand("copy"); } catch (e) {}
-    ta.remove();
-  }
-
   /* ---------- highlight the current section in the nav ---------- */
   function initNav() {
     var links = Array.prototype.slice.call(document.querySelectorAll(".nav-links a[href^='#']"));
@@ -369,9 +377,9 @@
 
   function init() {
     initLinks();
+    initOverview();
     initDemos();
     initLightbox();
-    initCopy();
     initNav();
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);

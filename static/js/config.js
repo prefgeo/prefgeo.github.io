@@ -27,6 +27,13 @@
  *                        clips), columns (3 or 5 = denser grid on desktop, for
  *                        one-clip-per-task tabs), items
  *
+ * OVERVIEW (narrated walkthrough, e.g. a NotebookLM Video/Audio Overview)
+ *   overview.video : an .mp4 in the repo  -> shown with player controls
+ *   overview.audio : an .mp3/.m4a/.wav     -> audio player (used if no video)
+ *   overview.poster, overview.duration (e.g. "6 min"), overview.note (small
+ *   print under the player). Leave both empty to hide the section + its links.
+ *   Strip metadata first:  ffmpeg -i in.mp4 -map_metadata -1 -c copy out.mp4
+ *
  * HIDING UNFINISHED SLOTS
  *   showPlaceholders: false  -> empty slots are hidden; items / tabs / whole
  *   sections with nothing to show disappear, including their nav link.
@@ -39,7 +46,15 @@ window.PREFGEO_CONFIG = {
     code: "",   // paper says: "Code will be released upon acceptance."
   },
 
-  showPlaceholders: true,
+  overview: {
+    video: "",      // e.g. "static/overview/prefgeo_overview.mp4"
+    audio: "",      // e.g. "static/overview/prefgeo_overview.mp3"
+    poster: "",
+    duration: "",   // e.g. "6 min"
+    note: "AI-generated narration based on the paper. The paper is the authoritative reference.",
+  },
+
+  showPlaceholders: false,
 
   demos: {
     /* ------------------------------------------------------------------ */
