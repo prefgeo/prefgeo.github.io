@@ -12,9 +12,9 @@
   --line: #e4e1da;
   --line-strong: #cfcbc2;
 
-  --accent: #c8102e;          /* PrefGeo red, as in the paper's plots */
-  --accent-ink: #a50d26;
-  --accent-soft: #fbeaec;     /* "best" cell color from the paper's tables */
+  --accent: #a8868e;          /* dusty rose (Morandi): titles, borders, key numbers */
+  --accent-ink: #7a5a63;      /* darker rose for small text and labels (AA contrast) */
+  --accent-soft: #f2eaec;     /* "best" table cells, tag backgrounds */
   --ours: #3b8a72;            /* green used for PrefGeo in the method figures */
 
   /* the three source-context colors used throughout the figures */
@@ -52,9 +52,9 @@
     --muted: #9a9ea8;
     --line: #2d3036;
     --line-strong: #3d4047;
-    --accent: #ff5a6e;
-    --accent-ink: #ff8391;
-    --accent-soft: rgba(255, 90, 110, .14);
+    --accent: #c9a5ad;
+    --accent-ink: #dcbcc3;
+    --accent-soft: rgba(201, 165, 173, .14);
     --ours: #5fbf9f;
     --figure-bg: #ffffff;
     --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 4px 16px rgba(0, 0, 0, .25);
@@ -70,9 +70,9 @@
   --muted: #9a9ea8;
   --line: #2d3036;
   --line-strong: #3d4047;
-  --accent: #ff5a6e;
-  --accent-ink: #ff8391;
-  --accent-soft: rgba(255, 90, 110, .14);
+  --accent: #c9a5ad;
+  --accent-ink: #dcbcc3;
+  --accent-soft: rgba(201, 165, 173, .14);
   --ours: #5fbf9f;
   --figure-bg: #ffffff;
   --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 4px 16px rgba(0, 0, 0, .25);
@@ -437,7 +437,9 @@ table.results.compact { min-width: 520px; }
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
 }
-.slot--ours .slot-label { background: var(--accent); }
+.slot--ours .slot-label { background: var(--accent-ink); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .slot--ours .slot-label { color: #1c1d21; } }
+:root[data-theme="dark"] .slot--ours .slot-label { color: #1c1d21; }
 .slot--empty .slot-label { background: var(--surface); color: var(--ink-2); border: 1px solid var(--line); }
 .slot--empty.slot--ours .slot-label { background: var(--accent-soft); color: var(--accent-ink); border-color: transparent; }
 .slot-badge {
