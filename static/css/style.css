@@ -372,7 +372,22 @@ table.results.compact { min-width: 520px; }
 .tab-cover.zoomable { cursor: zoom-in; }
 
 .demo-grid { display: grid; gap: 18px; grid-template-columns: 1fr; }
-@media (min-width: 880px) { .demo-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 880px) { .demo-grid--grid { grid-template-columns: 1fr 1fr; } }
+/* stack / picker: one task per row so each clip is ~half the content width */
+.demo-grid--stack .demo-item, .demo-grid--picker .demo-item { padding: 18px 18px 16px; }
+.demo-grid--picker .demo-item[hidden] { display: none; }
+
+.picker { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
+.picker-chip {
+  appearance: none; cursor: pointer; font: inherit; font-size: 14px; font-weight: 600;
+  padding: 6px 13px; border-radius: 999px; border: 1px solid var(--line-strong);
+  background: var(--surface); color: var(--ink-2); transition: background .15s, color .15s, border-color .15s;
+}
+.picker-chip:hover { background: var(--surface-2); color: var(--ink); }
+.picker-chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+/* square clips (LIBERO): cap the pair width so a 1:1 pair stays on screen */
+.tab-panel[style*="1/1"] .demo-grid--picker .demo-slots,
+.tab-panel[style*="1/1"] .demo-grid--stack .demo-slots { max-width: 820px; margin: 0 auto; }
 .demo-item {
   background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
   padding: 16px; box-shadow: var(--shadow); min-width: 0;

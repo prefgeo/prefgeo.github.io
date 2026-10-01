@@ -127,6 +127,33 @@
     return card;
   }
 
+  /* ---------- "picker" layout: task chips, one task visible at a time ---------- */
+  function buildPicker(cards) {
+    var bar = el("div", "picker");
+    bar.setAttribute("role", "group");
+    bar.setAttribute("aria-label", "Choose a task");
+    var chips = cards.map(function (card, i) {
+      var h = card.querySelector(".demo-item-head h4");
+      var chip = el("button", "picker-chip", h ? h.innerHTML : "Task " + (i + 1));
+      chip.type = "button";
+      chip.addEventListener("click", function () { show(i); });
+      bar.appendChild(chip);
+      return chip;
+    });
+    function show(i) {
+      cards.forEach(function (card, j) {
+        var on = i === j;
+        card.hidden = !on;
+        chips[j].setAttribute("aria-pressed", on ? "true" : "false");
+        if (!on) card.querySelectorAll("video").forEach(function (v) { v.pause(); });
+        else delete card.dataset.started;   // restart the pair from the top when shown
+      });
+      refreshVideos();
+    }
+    show(0);
+    return bar;
+  }
+
   /* ---------- a tabbed demo group ---------- */
   function renderDemoGroup(mount, tabs) {
     var built = [];
@@ -167,9 +194,11 @@
         cover.appendChild(ci);
         panel.appendChild(cover);
       }
-      var grid = el("div", "demo-grid");
+      var layout = b.tab.layout || (b.tab.columns ? "grid" : "stack");
+      var grid = el("div", "demo-grid demo-grid--" + layout);
       if (b.tab.columns) grid.setAttribute("data-cols", b.tab.columns);
       b.items.forEach(function (it) { grid.appendChild(it); });
+      if (layout === "picker" && b.items.length > 1) panel.appendChild(buildPicker(b.items));
       panel.appendChild(grid);
       panels.appendChild(panel);
     });

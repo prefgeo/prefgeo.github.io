@@ -24,8 +24,10 @@
  *                        (clips shown side by side) or a single `src`
  *   Per tab            : label, subtitle, aspect (clip frame shape, e.g.
  *                        "16/9", "4/3", "1/1"), cover (context image above the
- *                        clips), columns (3 or 5 = denser grid on desktop, for
- *                        one-clip-per-task tabs), items
+ *                        clips), layout, items
+ *                        layout: "stack"  (default) one task per row, full width
+ *                                "picker" task chips; one task shown at a time, full width
+ *                                "grid"   two tasks per row (smaller clips)
  *
  * OVERVIEW (narrated walkthrough, e.g. a NotebookLM Video/Audio Overview)
  *   overview.video : an .mp4 in the repo  -> shown with player controls
@@ -100,6 +102,31 @@ window.PREFGEO_CONFIG = {
           },
         ],
       },
+      {
+        id: "real-feeding",
+        label: "Assistive Feeding",
+        subtitle:
+          "User study with a Kinova Jaco arm. A baseline failure next to PrefGeo, adapted to each participant from 10 preference labels. Faces are blurred; clips play at 2×.",
+        aspect: "16/9",
+        layout: "stack",
+        items: [
+          { title: "Participant 1 · Candy", instruction: "Feed a piece of candy with a spoon",
+            variants: [
+              { label: "Baseline", src: "static/videos/real/feeding_u1_candy_baseline.mp4", poster: "static/videos/real/feeding_u1_candy_baseline.webp", badge: "2×" },
+              { label: "PrefGeo", src: "static/videos/real/feeding_u1_candy_prefgeo.mp4", poster: "static/videos/real/feeding_u1_candy_prefgeo.webp", badge: "2×", highlight: true },
+            ] },
+          { title: "Participant 1 · Waffle", instruction: "Feed a piece of waffle with a fork",
+            variants: [
+              { label: "Baseline", src: "static/videos/real/feeding_u1_waffle_baseline.mp4", poster: "static/videos/real/feeding_u1_waffle_baseline.webp", badge: "2×" },
+              { label: "PrefGeo", src: "static/videos/real/feeding_u1_waffle_prefgeo.mp4", poster: "static/videos/real/feeding_u1_waffle_prefgeo.webp", badge: "2×", highlight: true },
+            ] },
+          { title: "Participant 2 · Waffle", instruction: "Feed a piece of waffle with a fork",
+            variants: [
+              { label: "Baseline", src: "static/videos/real/feeding_u2_waffle_baseline.mp4", poster: "static/videos/real/feeding_u2_waffle_baseline.webp", badge: "2×" },
+              { label: "PrefGeo", src: "static/videos/real/feeding_u2_waffle_prefgeo.mp4", poster: "static/videos/real/feeding_u2_waffle_prefgeo.webp", badge: "2×", highlight: true },
+            ] },
+        ],
+      },
     ],
 
     /* ------------------------------------------------------------------ */
@@ -110,6 +137,7 @@ window.PREFGEO_CONFIG = {
         subtitle:
           "Unseen target tasks: a baseline failure next to PrefGeo, whose policy is trained from scratch with the reward adapted from 20 target labels. Neither the target object nor the target action appears in the source tasks.",
         aspect: "16/9",
+        layout: "picker",
         items: [
           { title: "Coffee Button", instruction: "Press the button on a coffee machine",
             variants: [
@@ -144,6 +172,7 @@ window.PREFGEO_CONFIG = {
         subtitle:
           "A baseline failure next to π<sub>0.5</sub>-base fine-tuned with PrefGeo's adapted reward from 20 target labels. Each task is held out once as the target, with the other nine as sources.",
         aspect: "1/1",
+        layout: "picker",
         items: [
           { title: "T1 · Open middle drawer", instruction: "Open the middle drawer of the cabinet",
             variants: [
