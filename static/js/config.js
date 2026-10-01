@@ -65,41 +65,34 @@ window.PREFGEO_CONFIG = {
         id: "real-vla",
         label: "VLA Manipulation",
         subtitle:
-          "Franka Panda, π<sub>0.5</sub>-DROID fine-tuned with PrefGeo using 20 target preference labels per held-out task.",
+          "Franka arm, π<sub>0.5</sub>-DROID fine-tuned with PrefGeo using 20 target preference labels per held-out task. Each pair shows a baseline failure (π<sub>0.5</sub>-DROID zero-shot or + LoRe) next to a PrefGeo success. Clips play at 4× and are trimmed at the ends.",
         aspect: "16/9",
+        layout: "stack",
         items: [
-          {
-            title: "Take toast out of toaster",
-            instruction: "Put the slice of bread from the toaster to the bowl",
+          { title: "Take toast out of toaster", instruction: "Put the slice of bread from the toaster to the bowl",
+            caption: "Successes over 10 trials: π0.5-DROID 2/10 · + LoRe 1/10 · + PrefGeo 7/10",
             variants: [
-              { label: "π0.5-DROID (zero-shot)", src: "", note: "2/10 successes" },
-              { label: "+ PrefGeo", src: "", note: "7/10 successes", highlight: true },
-            ],
-          },
-          {
-            title: "Empty the box",
-            instruction: "Remove the screwdriver and the cloth from the basket and put them on the table",
+              { label: "Baseline", src: "static/videos/real/vla_toast_baseline.mp4", poster: "static/videos/real/vla_toast_baseline.webp", badge: "4×" },
+              { label: "PrefGeo", src: "static/videos/real/vla_toast_prefgeo.mp4", poster: "static/videos/real/vla_toast_prefgeo.webp", badge: "4×", highlight: true },
+            ] },
+          { title: "Empty the box", instruction: "Remove the screwdriver and the cloth from the basket and put them on the table",
+            caption: "Successes over 10 trials: π0.5-DROID 4/10 · + LoRe 5/10 · + PrefGeo 9/10",
             variants: [
-              { label: "π0.5-DROID (zero-shot)", src: "", note: "4/10 successes" },
-              { label: "+ PrefGeo", src: "", note: "9/10 successes", highlight: true },
-            ],
-          },
-          {
-            title: "Stack cubes",
-            instruction: "Stack the red block on top of the blue block",
+              { label: "Baseline", src: "static/videos/real/vla_box_baseline.mp4", poster: "static/videos/real/vla_box_baseline.webp", badge: "4×" },
+              { label: "PrefGeo", src: "static/videos/real/vla_box_prefgeo.mp4", poster: "static/videos/real/vla_box_prefgeo.webp", badge: "4×", highlight: true },
+            ] },
+          { title: "Stack cubes", instruction: "Stack the red block on top of the blue block",
+            caption: "Successes over 10 trials: π0.5-DROID 2/10 · + LoRe 2/10 · + PrefGeo 6/10",
             variants: [
-              { label: "π0.5-DROID (zero-shot)", src: "", note: "2/10 successes" },
-              { label: "+ PrefGeo", src: "", note: "6/10 successes", highlight: true },
-            ],
-          },
-          {
-            title: "Put marker into cup",
-            instruction: "Pick up the red marker and put it into the blue cup",
+              { label: "Baseline", src: "static/videos/real/vla_cubes_baseline.mp4", poster: "static/videos/real/vla_cubes_baseline.webp", badge: "4×" },
+              { label: "PrefGeo", src: "static/videos/real/vla_cubes_prefgeo.mp4", poster: "static/videos/real/vla_cubes_prefgeo.webp", badge: "4×", highlight: true },
+            ] },
+          { title: "Put marker into cup", instruction: "Pick up the red marker and put it into the blue cup",
+            caption: "Successes over 10 trials: π0.5-DROID 1/10 · + LoRe 3/10 · + PrefGeo 5/10",
             variants: [
-              { label: "π0.5-DROID (zero-shot)", src: "", note: "1/10 successes" },
-              { label: "+ PrefGeo", src: "", note: "5/10 successes", highlight: true },
-            ],
-          },
+              { label: "Baseline", src: "static/videos/real/vla_marker_baseline.mp4", poster: "static/videos/real/vla_marker_baseline.webp", badge: "4×" },
+              { label: "PrefGeo", src: "static/videos/real/vla_marker_prefgeo.mp4", poster: "static/videos/real/vla_marker_prefgeo.webp", badge: "4×", highlight: true },
+            ] },
         ],
       },
       {
