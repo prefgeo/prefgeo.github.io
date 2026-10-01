@@ -24,7 +24,8 @@
  *                        (clips shown side by side) or a single `src`
  *   Per tab            : label, subtitle, aspect (clip frame shape, e.g.
  *                        "16/9", "4/3", "1/1"), cover (context image above the
- *                        clips), items
+ *                        clips), columns (3 or 5 = denser grid on desktop, for
+ *                        one-clip-per-task tabs), items
  *
  * HIDING UNFINISHED SLOTS
  *   showPlaceholders: false  -> empty slots are hidden; items / tabs / whole
@@ -84,24 +85,6 @@ window.PREFGEO_CONFIG = {
           },
         ],
       },
-      {
-        id: "real-feeding",
-        label: "Assistive Feeding User Study",
-        subtitle:
-          "Kinova Jaco arm. Each participant gives only 10 preference labels; policies are shown in a blind, randomized order.",
-        aspect: "16/9",
-        items: [
-          {
-            title: "Robot-assisted feeding",
-            caption: "Participants' faces are blurred.",
-            variants: [
-              { label: "Base", src: "" },
-              { label: "LoRe", src: "" },
-              { label: "PrefGeo", src: "", highlight: true },
-            ],
-          },
-        ],
-      },
     ],
 
     /* ------------------------------------------------------------------ */
@@ -110,63 +93,50 @@ window.PREFGEO_CONFIG = {
         id: "sim-metaworld",
         label: "Meta-World",
         subtitle:
-          "Unseen target tasks; neither the target object nor the target action appears in the source tasks. Policies trained from scratch with the adapted reward.",
-        aspect: "1/1",
-        cover: "static/images/metaworld_tasks.webp",
+          "PrefGeo policies on unseen target tasks, trained from scratch with the reward adapted from 20 target labels. Neither the target object nor the target action appears in the source tasks.",
+        aspect: "16/9",
+        columns: 3,
         items: [
           { title: "Coffee Button", instruction: "Press the button on a coffee machine",
-            variants: [ { label: "LoRe", src: "" }, { label: "PrefGeo", src: "", highlight: true } ] },
+            src: "static/videos/sim/mw_coffee-button.mp4", poster: "static/videos/sim/mw_coffee-button.webp" },
           { title: "Drawer Open", instruction: "Grasp the handle and pull a drawer open",
-            variants: [ { label: "LoRe", src: "" }, { label: "PrefGeo", src: "", highlight: true } ] },
+            src: "static/videos/sim/mw_drawer-open.mp4", poster: "static/videos/sim/mw_drawer-open.webp" },
           { title: "Handle Pull", instruction: "Pull a handle upward",
-            variants: [ { label: "LoRe", src: "" }, { label: "PrefGeo", src: "", highlight: true } ] },
+            src: "static/videos/sim/mw_handle-pull.mp4", poster: "static/videos/sim/mw_handle-pull.webp" },
           { title: "Sweep Into", instruction: "Sweep a puck into a hole on the table",
-            variants: [ { label: "LoRe", src: "" }, { label: "PrefGeo", src: "", highlight: true } ] },
+            src: "static/videos/sim/mw_sweep-into.mp4", poster: "static/videos/sim/mw_sweep-into.webp" },
           { title: "Window Close", instruction: "Push a sliding window closed",
-            variants: [ { label: "LoRe", src: "" }, { label: "PrefGeo", src: "", highlight: true } ] },
+            src: "static/videos/sim/mw_window-close.mp4", poster: "static/videos/sim/mw_window-close.webp" },
         ],
       },
       {
         id: "sim-libero",
         label: "LIBERO-Goal",
         subtitle:
-          "Each task is held out once as the target, with the other nine as sources. π<sub>0.5</sub>-base fine-tuned with 20 target labels.",
+          "π<sub>0.5</sub>-base fine-tuned with PrefGeo's adapted reward from 20 target labels. Each task is held out once as the target, with the other nine as sources.",
         aspect: "1/1",
-        cover: "static/images/libero_tasks.webp",
+        columns: 5,
         items: [
           { title: "T1 · Open middle drawer", instruction: "Open the middle drawer of the cabinet",
-            variants: [ { label: "π0.5-base", src: "" }, { label: "+ PrefGeo", src: "", highlight: true } ] },
+            src: "static/videos/sim/libero_t01.mp4", poster: "static/videos/sim/libero_t01.webp" },
           { title: "T2 · Bowl on stove", instruction: "Put the bowl on the stove",
-            variants: [ { label: "π0.5-base", src: "" }, { label: "+ PrefGeo", src: "", highlight: true } ] },
+            src: "static/videos/sim/libero_t02.mp4", poster: "static/videos/sim/libero_t02.webp" },
           { title: "T3 · Bottle on cabinet", instruction: "Put the wine bottle on top of the cabinet",
-            variants: [ { label: "π0.5-base", src: "" }, { label: "+ PrefGeo", src: "", highlight: true } ] },
+            src: "static/videos/sim/libero_t03.mp4", poster: "static/videos/sim/libero_t03.webp" },
           { title: "T4 · Bowl in top drawer", instruction: "Open the top drawer and put the bowl inside",
-            variants: [ { label: "π0.5-base", src: "" }, { label: "+ PrefGeo", src: "", highlight: true } ] },
+            src: "static/videos/sim/libero_t04.mp4", poster: "static/videos/sim/libero_t04.webp" },
           { title: "T5 · Bowl on cabinet", instruction: "Put the bowl on top of the cabinet",
-            variants: [ { label: "π0.5-base", src: "" }, { label: "+ PrefGeo", src: "", highlight: true } ] },
+            src: "static/videos/sim/libero_t05.mp4", poster: "static/videos/sim/libero_t05.webp" },
           { title: "T6 · Push plate to stove", instruction: "Push the plate to the front of the stove",
-            variants: [ { label: "π0.5-base", src: "" }, { label: "+ PrefGeo", src: "", highlight: true } ] },
+            src: "static/videos/sim/libero_t06.mp4", poster: "static/videos/sim/libero_t06.webp" },
           { title: "T7 · Cheese in bowl", instruction: "Put the cream cheese in the bowl",
-            variants: [ { label: "π0.5-base", src: "" }, { label: "+ PrefGeo", src: "", highlight: true } ] },
+            src: "static/videos/sim/libero_t07.mp4", poster: "static/videos/sim/libero_t07.webp" },
           { title: "T8 · Turn on stove", instruction: "Turn on the stove",
-            variants: [ { label: "π0.5-base", src: "" }, { label: "+ PrefGeo", src: "", highlight: true } ] },
+            src: "static/videos/sim/libero_t08.mp4", poster: "static/videos/sim/libero_t08.webp" },
           { title: "T9 · Bowl on plate", instruction: "Put the bowl on the plate",
-            variants: [ { label: "π0.5-base", src: "" }, { label: "+ PrefGeo", src: "", highlight: true } ] },
+            src: "static/videos/sim/libero_t09.mp4", poster: "static/videos/sim/libero_t09.webp" },
           { title: "T10 · Bottle on rack", instruction: "Put the wine bottle on the rack",
-            variants: [ { label: "π0.5-base", src: "" }, { label: "+ PrefGeo", src: "", highlight: true } ] },
-        ],
-      },
-      {
-        id: "sim-feeding",
-        label: "Assistive Gym Feeding",
-        subtitle:
-          "Unseen simulated users, each adapted with 20 preference labels. From the same starting state, each method's adapted reward picks its best of 10 base-policy rollouts.",
-        aspect: "4/3",
-        items: [
-          { title: "Unseen user A", caption: "",
-            variants: [ { label: "LoRe's pick", src: "" }, { label: "PrefGeo's pick", src: "", highlight: true } ] },
-          { title: "Unseen user B", caption: "",
-            variants: [ { label: "LoRe's pick", src: "" }, { label: "PrefGeo's pick", src: "", highlight: true } ] },
+            src: "static/videos/sim/libero_t10.mp4", poster: "static/videos/sim/libero_t10.webp" },
         ],
       },
     ],

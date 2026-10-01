@@ -161,6 +161,7 @@
         panel.appendChild(cover);
       }
       var grid = el("div", "demo-grid");
+      if (b.tab.columns) grid.setAttribute("data-cols", b.tab.columns);
       b.items.forEach(function (it) { grid.appendChild(it); });
       panel.appendChild(grid);
       panels.appendChild(panel);

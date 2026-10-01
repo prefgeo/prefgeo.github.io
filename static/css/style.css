@@ -380,6 +380,23 @@ table.results.compact { min-width: 520px; }
   padding: 16px; box-shadow: var(--shadow); min-width: 0;
 }
 .demo-item--wide { grid-column: 1 / -1; }
+
+/* denser grids for one-clip-per-task tabs (config: columns: 3 or 5) */
+.demo-grid[data-cols] { gap: 14px; }
+.demo-grid[data-cols] .demo-item { padding: 10px 10px 12px; }
+.demo-grid[data-cols] .demo-item-head { margin-bottom: 8px; }
+.demo-grid[data-cols] .demo-item-head h4 { font-size: 1rem; }
+.demo-grid[data-cols] .demo-instruction { font-size: 14px; }
+.demo-grid[data-cols="3"] { grid-template-columns: 1fr; }
+.demo-grid[data-cols="5"] { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+@media (min-width: 600px) {
+  .demo-grid[data-cols="3"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .demo-grid[data-cols="5"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (min-width: 960px) {
+  .demo-grid[data-cols="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .demo-grid[data-cols="5"] { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+}
 .demo-item-head { margin-bottom: 12px; }
 .demo-item-head h4 { font-size: 1.1rem; }
 .demo-instruction { margin: 3px 0 0; font-family: var(--font-serif); font-style: italic; font-size: 15.5px; color: var(--muted); line-height: 1.4; }
