@@ -61,7 +61,7 @@ ffmpeg -i input.gif -an -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" \
    ffmpeg -i overview.mp4 -map_metadata -1 -c copy static/overview/prefgeo_overview.mp4
    ```
 2. In `static/js/config.js`, set `overview.video` (or `overview.audio` for an
-   .mp3/.m4a) and optionally `duration`. With both empty, the Overview section
+   .mp3/.m4a) and optionally `duration`. With both empty, the Walkthrough section
    and its links are hidden.
 
 ## Keeping the page anonymous (double-blind review)

@@ -299,7 +299,7 @@
     var ov = CONFIG.overview || {};
     var mount = document.getElementById("overview-player");
     if (!mount) return;
-    if (!ov.video && !ov.audio) { removeSection("overview"); return; }
+    if (!ov.video && !ov.audio) { removeSection("walkthrough"); return; }
     var m;
     if (ov.video) {
       m = document.createElement("video");
@@ -371,7 +371,7 @@
     box.addEventListener("click", function (e) { if (e.target !== img) shut(); });
     document.addEventListener("keydown", function (e) { if (!box.hidden && e.key === "Escape") shut(); });
 
-    document.querySelectorAll(".fig-frame img, .tab-cover img").forEach(function (fimg) {
+    document.querySelectorAll(".fig-frame:not(.anim-frame) img, .tab-cover img").forEach(function (fimg) {
       var wrap = fimg.parentElement;
       wrap.classList.add("zoomable");
       wrap.tabIndex = 0;

@@ -29,11 +29,11 @@
  *                                "picker" task chips; one task shown at a time, full width
  *                                "grid"   two tasks per row (smaller clips)
  *
- * OVERVIEW (narrated walkthrough, e.g. a NotebookLM Video/Audio Overview)
+ * WALKTHROUGH (narrated overview, e.g. a NotebookLM Video/Audio Overview)
  *   overview.video : an .mp4 in the repo  -> shown with player controls
  *   overview.audio : an .mp3/.m4a/.wav     -> audio player (used if no video)
  *   overview.poster, overview.duration (e.g. "6 min"), overview.note (small
- *   print under the player). Leave both empty to hide the section + its links.
+ *   print under the player). Leave both empty to hide the Walkthrough section + its links.
  *   Strip metadata first:  ffmpeg -i in.mp4 -map_metadata -1 -c copy out.mp4
  *
  * HIDING UNFINISHED SLOTS

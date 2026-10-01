@@ -28,6 +28,7 @@
     onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
   <script defer src="static/js/config.js"></script>
   <script defer src="static/js/main.js"></script>
+  <script defer src="static/js/fig-anim.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -53,9 +54,10 @@
       <div class="nav-links">
         <a href="#abstract">Abstract</a>
         <a href="#overview">Overview</a>
-        <a href="#rollouts">Rollouts</a>
         <a href="#method">Method</a>
+        <a href="#rollouts">Rollouts</a>
         <a href="#results">Results</a>
+        <a href="#walkthrough">Walkthrough</a>
       </div>
     </div>
   </nav>
@@ -79,9 +81,9 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 7-5 5 5 5M16 7l5 5-5 5"/></svg>
             Code <span class="btn-soon" hidden>(upon acceptance)</span>
           </a>
-          <a class="btn btn--ghost" href="#overview">
+          <a class="btn btn--ghost" href="#walkthrough">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13a8 8 0 0 1 16 0"/><rect x="3" y="13" width="4" height="7" rx="1.5"/><rect x="17" y="13" width="4" height="7" rx="1.5"/></svg>
-            Overview
+            Walkthrough
           </a>
           <a class="btn btn--ghost" href="#rollouts">
             <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="13" height="14" rx="2"/><path d="m16 10 5-3v10l-5-3z"/></svg>
@@ -103,42 +105,21 @@
         <div class="measure abstract">
           <p>Preference-based reinforcement learning is a popular paradigm for aligning AI models with human intent, but generalizing it to a new context, whether an unseen task or a new user, typically requires substantial additional feedback. In this work, we introduce PrefGeo, a geometric reward factorization framework for efficient preference learning across contexts. Unlike prior methods that fit a shared reward basis directly from preference data, PrefGeo recovers it from independently estimated context-specific rewards via regularized minimum-volume unmixing in a preference-induced Fisher geometry, capturing reusable preference structure. A new context is then adapted by updating only low-dimensional mixture weights. We evaluate PrefGeo on cross-task generalization in robotic manipulation, with both conventional policies and vision-language-action models, and on cross-user personalization in large language models and assistive human-robot interaction. PrefGeo consistently outperforms baselines in preference alignment and downstream task performance, especially when target feedback is scarce. Real-robot experiments and an assistive-feeding user study confirm its effectiveness in the real world.</p>
         </div>
-        <figure class="fig teaser">
-          <div class="fig-frame">
+      </div>
+    </section>
+
+    <!-- ================= OVERVIEW (Figure 1, animated by static/js/fig-anim.js) ================= -->
+    <section class="section" id="overview">
+      <div class="container">
+        <span class="section-eyebrow">Overview</span>
+        <h2 class="section-title">Problem and Key Idea</h2>
+        <figure class="fig teaser teaser--section" id="teaser-anim" data-anim="fig1" data-svg="static/images/teaser_anim.svg">
+          <div class="fig-frame anim-frame">
             <img src="static/images/teaser.webp" width="2200" height="888"
                  alt="Overview: (a) cross-task generalization and pluralistic personalization; (b) preference reward factorization into context-specific weights and a shared reward basis; (c) prior methods suffer from factorization ambiguity and geometry bias, while PrefGeo decouples reward-head estimation from basis recovery.">
           </div>
           <figcaption><strong>Figure 1.</strong> <strong>(a)</strong> We study cross-task generalization and pluralistic personalization. <strong>(b)</strong> Preference reward factorization models each context-specific reward head as a mixture of a shared reward basis. <strong>(c)</strong> Prior methods fit the factorization directly to preference data and suffer from <em>factorization ambiguity</em> and <em>geometry bias</em>. PrefGeo decouples reward-head estimation from basis recovery via geometric unmixing, which yields a basis that transfers more stably.</figcaption>
         </figure>
-      </div>
-    </section>
-
-    <!-- ================= OVERVIEW (audio / video, set in static/js/config.js) ================= -->
-    <section class="section" id="overview">
-      <div class="container">
-        <span class="section-eyebrow">Overview</span>
-        <h2 class="section-title">PrefGeo in a Few Minutes</h2>
-        <p class="section-lede" id="overview-lede">A short narrated walkthrough of the problem, the method, and the main results.</p>
-        <div class="overview-player" id="overview-player"></div>
-      </div>
-    </section>
-
-    <!-- ================= ROLLOUTS (rendered from static/js/config.js) ================= -->
-    <section class="section" id="rollouts">
-      <div class="container">
-        <span class="section-eyebrow">Rollouts</span>
-        <h2 class="section-title">PrefGeo in Action</h2>
-        <p class="section-lede">Policies adapted to unseen tasks from only a handful of preference labels, on a real robot and in simulation.</p>
-
-        <div class="demo-block">
-          <h3 class="demo-block-title">Real World <span class="pill">Real robot</span></h3>
-          <div id="demos-real"></div>
-        </div>
-
-        <div class="demo-block">
-          <h3 class="demo-block-title">Simulation <span class="pill">Benchmarks</span></h3>
-          <div id="demos-sim"></div>
-        </div>
       </div>
     </section>
 
@@ -176,8 +157,8 @@
           </div>
         </div>
 
-        <figure class="fig">
-          <div class="fig-frame">
+        <figure class="fig" id="method-anim" data-anim="fig2" data-svg="static/images/overview_anim.svg" data-stages="#method .stages .stage">
+          <div class="fig-frame anim-frame">
             <img src="static/images/overview.webp" width="2200" height="763" loading="lazy"
                  alt="PrefGeo overview: (a) Predict fits a reward head per source context under a Fisher metric; (b) Unmix recovers a shared reward basis as a minimum-volume simplex; (c) Remix adapts only the mixture weights for a new user or task.">
           </div>
@@ -206,6 +187,25 @@
             <div class="eq">$$\hat\theta_{c^\star}=\arg\min_{\theta\in\Delta^{K-1}}\mathcal L^{\mathrm{BT}}_{\hat A^{\top}\theta;\mathcal D_{c^\star}}+\lambda\big\|\hat A^{\top}(\theta-\theta_0)\big\|_G^2$$</div>
             <p class="eq-note">Measured in reward space, so the prior does not depend on how the basis is parameterized.</p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ROLLOUTS (rendered from static/js/config.js) ================= -->
+    <section class="section" id="rollouts">
+      <div class="container">
+        <span class="section-eyebrow">Rollouts</span>
+        <h2 class="section-title">PrefGeo in Action</h2>
+        <p class="section-lede">Policies adapted to unseen tasks and users from only a handful of preference labels, in simulation and on real robots.</p>
+
+        <div class="demo-block">
+          <h3 class="demo-block-title">Simulation <span class="pill">Benchmarks</span></h3>
+          <div id="demos-sim"></div>
+        </div>
+
+        <div class="demo-block">
+          <h3 class="demo-block-title">Real World <span class="pill">Real robot</span></h3>
+          <div id="demos-real"></div>
         </div>
       </div>
     </section>
@@ -391,6 +391,16 @@
             <figcaption><strong>User study.</strong> Satisfaction ratings from 8 participants, 3 runs each; * p &lt; 0.05. Faces are blurred.</figcaption>
           </figure>
         </div>
+      </div>
+    </section>
+
+    <!-- ================= WALKTHROUGH (narrated audio / video, set in static/js/config.js) ================= -->
+    <section class="section" id="walkthrough">
+      <div class="container">
+        <span class="section-eyebrow">Walkthrough</span>
+        <h2 class="section-title">PrefGeo in a Few Minutes</h2>
+        <p class="section-lede" id="overview-lede">A short narrated walkthrough of the problem, the method, and the main results.</p>
+        <div class="overview-player" id="overview-player"></div>
       </div>
     </section>
 
